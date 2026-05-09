@@ -274,7 +274,11 @@ export default function App() {
   const [newQrBgColor, setNewQrBgColor] = useState("#FFFFFF");
   const [newFolderName, setNewFolderName] = useState("");
 
-  const appUrl = env.VITE_APP_URL ?? window.location.origin;
+  const appUrl = env.VITE_APP_URL
+    || env.APP_URL
+    || (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "https://smart-qr-beta.vercel.app"
+      : window.location.origin);
 
   useEffect(() => {
     let active = true;
