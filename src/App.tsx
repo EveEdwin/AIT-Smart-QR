@@ -87,6 +87,7 @@ const mergeUniqueById = <T extends { id: string }>(items: T[]) => {
 };
 
 export default function App() {
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {};
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [folders, setFolders] = useState<Folder[]>([]);
@@ -273,7 +274,7 @@ export default function App() {
   const [newQrBgColor, setNewQrBgColor] = useState("#FFFFFF");
   const [newFolderName, setNewFolderName] = useState("");
 
-  const appUrl = window.location.origin;
+  const appUrl = env.VITE_APP_URL ?? window.location.origin;
 
   useEffect(() => {
     let active = true;
@@ -481,7 +482,7 @@ export default function App() {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: appUrl,
         },
       });
 
