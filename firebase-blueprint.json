@@ -1,0 +1,55 @@
+{
+  "entities": {
+    "Folder": {
+      "title": "Folder",
+      "description": "A container for organizing QR codes",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the folder" },
+        "parentId": { "type": "string", "format": "id", "description": "Parent folder ID for nesting" },
+        "userId": { "type": "string", "format": "id", "description": "Owner of the folder" },
+        "managers": { "type": "array", "items": { "type": "string" }, "description": "Emails of users who can manage this folder" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "userId", "createdAt"]
+    },
+    "QRCode": {
+      "title": "QR Code",
+      "description": "A dynamic QR code definition supporting Links, Text, and Files",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "User-friendly name" },
+        "type": { "type": "string", "enum": ["link", "text", "file"], "description": "Type of content stored" },
+        "content": { 
+          "type": "object", 
+          "properties": {
+            "value": { "type": "string", "description": "The URL, plain text, or download link" },
+            "fileName": { "type": "string" },
+            "fileSize": { "type": "number" },
+            "mimeType": { "type": "string" }
+          }
+        },
+        "targetUrl": { "type": "string", "format": "uri", "description": "Legacy compatibility: Where the QR redirect points to" },
+        "slug": { "type": "string", "description": "Unique short identifier for the redirect URL" },
+        "folderId": { "type": "string", "format": "id", "description": "Folder this QR belongs to" },
+        "userId": { "type": "string", "format": "id", "description": "Owner of the QR code" },
+        "managers": { "type": "array", "items": { "type": "string" }, "description": "Emails of users who can manage this QR" },
+        "visibility": { "type": "string", "enum": ["public", "restricted"], "description": "Who can scan/access the redirect" },
+        "allowedEmails": { "type": "array", "items": { "type": "string" }, "description": "Whitelist of emails for restricted access" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "slug", "userId", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/folders/{folderId}": {
+      "schema": "Folder",
+      "description": "User folders"
+    },
+    "/qrCodes/{qrCodeId}": {
+      "schema": "QRCode",
+      "description": "Dynamic QR code mappings"
+    }
+  }
+}

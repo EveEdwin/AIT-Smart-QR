@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-cred-black: #050505;
+  --color-cred-obsidian: #0e0e0e;
+  --color-cred-graphite: #181818;
+  --color-cred-carbon: #242424;
+  --color-cred-platinum: #f4f4ef;
+  --color-cred-silver: #a7a7a0;
+  --color-cred-ash: #686864;
+  --color-cred-gold: #d8b35f;
+  --color-cred-violet: #7c5cff;
+  --color-cred-cyan: #00d8ff;
+  --color-cred-coral: #ff5b5b;
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-black selection:bg-black selection:text-white antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+.cred-glass {
+  @apply bg-black/[0.02] border border-black/[0.08] backdrop-blur-md;
+}
+
+.cred-card-shadow {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.cred-button-tactile {
+  @apply transition-all duration-150 active:translate-y-[1px];
+  box-shadow: 0 2px 0 rgba(0,0,0,1);
+}
+
+.cred-button-tactile:active {
+  box-shadow: 0 0 0 rgba(0,0,0,1);
+}
+
+.cred-gradient-metal {
+  background: linear-gradient(145deg, #ffffff 0%, #f4f4f4 55%, #e1e1e1 100%);
+}
+
+.cred-gradient-reward {
+  background: radial-gradient(circle at top right, rgba(0,0,0,0.03), rgba(255,255,255,0) 42%);
+}
